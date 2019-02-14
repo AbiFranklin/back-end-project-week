@@ -6,11 +6,11 @@ const db = knex(db_config.development);
 
 module.exports = {
     getPosts: () => {
-        return db('posts')
+        return db('posts').join('users', 'posts.user_id', 'users.id').select('posts.title', 'posts.text', 'posts.category', 'users.username')
     },
 
     getPost: (id) => {
-        return db('posts').where('id', id);
+        return db('posts').join('users', 'posts.user_id', 'users.id').where('posts.id', id).select('posts.title', 'posts.text', 'posts.category', 'users.username');
     },
 
     updatePost: (note) => {
@@ -28,4 +28,5 @@ module.exports = {
     addUser: (user) => {
         return db('users').insert(user)
     }
+
 }
