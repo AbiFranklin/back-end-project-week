@@ -48,6 +48,17 @@ server.get('/api/posts', (req, res) => {
     }
   });
 
+  server.delete('/api/posts/:id', (req,res) => {
+    const {id} = req.params;
+    noteHelpers.deletePost(id)
+    .then(count => {
+      res.status(200).json({ success: 'Note successfully deleted' })
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'Failed to delete note.' })
+    })
+  });
+
 server.listen(8000, () => {
     console.log('API listening on port 8000');
 })

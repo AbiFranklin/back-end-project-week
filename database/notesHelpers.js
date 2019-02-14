@@ -15,5 +15,9 @@ module.exports = {
 
     updatePost: (note) => {
         return db('posts').update(note);
+    },
+
+    deletePost: (id) => {
+       return db('posts').where('id', id).del()
     }
 }
