@@ -12,4 +12,8 @@ module.exports = {
     getPost: (id) => {
         return db('posts').where('id', id);
     },
+
+    updatePost: (note) => {
+        return db('posts').update(note);
+    }
 }
