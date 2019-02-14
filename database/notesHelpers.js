@@ -19,5 +19,13 @@ module.exports = {
 
     deletePost: (id) => {
        return db('posts').where('id', id).del()
+    },
+
+    addPost: (note) => {
+        return db('posts').insert(note)
+    },
+
+    addUser: (user) => {
+        return db('users').insert(user)
     }
 }

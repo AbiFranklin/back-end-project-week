@@ -31,7 +31,7 @@ server.get('/api/posts', (req, res) => {
 
    server.put('/api/posts/:id', (req, res) => {
     const note = req.body;
-    if (note.title && note.text && note.category){ 
+    if (note.title && note.text && note.category && note.user_id){ 
     noteHelpers.updatePost(note)
     .then(count => {
       if (count) {
@@ -58,6 +58,38 @@ server.get('/api/posts', (req, res) => {
       res.status(500).json({ error: 'Failed to delete note.' })
     })
   });
+
+  server.post('/api/posts', (req, res) => {
+    const note = req.body;
+    if (note.title && note.text && note.category && note.user_id) {
+        noteHelpers.addPost(note)
+        .then(ids => {
+            res.status(201).json(ids)
+        })
+        .catch(err => {
+            res.status(500).json({err: 'Failed to add note'})
+        })
+    } else {
+        res.status(400).json({ error: "Please provide a title, text, and category for your note." })
+    }
+})
+
+server.post('/api/users', (req, res) => {
+    const user = req.body;
+    if (user.username) {
+        noteHelpers.addUser(user)
+        .then(ids => {
+            res.status(201).json(ids)
+        })
+        .catch(err => {
+            res.status(500).json({err: 'Failed to add user'})
+        })
+    } else {
+        res.status(400).json({ error: "Please provide a username" })
+    }
+})
+
+
 
 server.listen(8000, () => {
     console.log('API listening on port 8000');
