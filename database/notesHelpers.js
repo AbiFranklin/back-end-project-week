@@ -8,4 +8,8 @@ module.exports = {
     getPosts: () => {
         return db('posts')
     },
+
+    getPost: (id) => {
+        return db('posts').where('id', id);
+    },
 }

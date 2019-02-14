@@ -14,6 +14,21 @@ server.get('/api/posts', (req, res) => {
     })
   });
 
+  server.get('/api/posts/:id', (req, res) => {
+    const {id} = req.params;
+    noteHelpers.getPost(id)
+    .then(arr => {
+      if (arr.length > 0) {
+      res.status(200).json(arr)
+      } else {
+        res.status(404).json({ error: 'No note for given id.'})
+      }
+    })
+    .catch(err => {
+     res.status(500).json({ error: 'Failed to retrieve note.'})
+     }) 
+   });
+
 server.listen(8000, () => {
     console.log('API listening on port 8000');
 })
