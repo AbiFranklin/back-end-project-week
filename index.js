@@ -1,13 +1,16 @@
 const express = require('express');
+const cors = require('cors');
 const server = express();
 const noteHelpers = require('./database/notesHelpers.js');
 
+server.use(cors());
 server.use(express.json());
+
 
 server.get('/api/posts', (req, res) => {
     noteHelpers.getPosts()
     .then(posts => {
-      res.status(200).json({ posts });
+      res.status(200).send(posts);
     })
     .catch(err => {
       res.status(500).json({ error: "Error returning notes."});
