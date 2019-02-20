@@ -6,7 +6,7 @@ const db = knex(db_config.development);
 
 module.exports = {
     getPosts: () => {
-        return db('posts').join('users', 'posts.user_id', 'users.id').select('posts.title', 'posts.text', 'posts.category', 'users.username')
+        return db('posts').join('users', 'posts.user_id', 'users.id').select('posts.title', 'posts.text', 'posts.category', 'users.username', 'posts.id')
     },
 
     getPost: (id) => {
