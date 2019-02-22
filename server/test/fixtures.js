@@ -25,7 +25,14 @@ const singlePost = [
     }
     ];
 
+const testPost = {
+    "title": "123",
+    "text": "Testing",
+    "user_id": 2
+}
+
 module.exports = {
     posts,
-    singlePost
+    singlePost,
+    testPost
 }

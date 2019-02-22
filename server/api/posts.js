@@ -60,4 +60,40 @@ router.post('/', (req, res, next) => {
     }
 });
 
+router.put('/:id', isValidId, (req, res, next) => {
+    if(validPost(req.body)) {
+        queries.editPost(req.params.id, req.body)
+        .then(posts =>{
+            res.status(200).json(posts);
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: 'Failed to update note'
+            })
+        })
+    } else {
+        res.status(500).json({
+            error: 'Invalid Post'
+        })
+    }
+})
+
+router.delete('/:id', isValidId, (req, res) => {
+    if(validPost(req.body)) {
+        queries.delPost(req.params.id)
+        .then(posts =>{
+            res.status(200).json(posts);
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: 'Failed to delete note'
+            })
+        })
+    } else {
+        res.status(500).json({
+            error: 'Invalid Post'
+        })
+    }
+})
+
 module.exports = router;
